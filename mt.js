@@ -1,13 +1,14 @@
 var CircularJSON = require('circular-json');
 var window = this;
 var location = {
-    'origin': 'https://market.waimai.meituan.com',
+    'origin': 'http://meishi.meituan.com/i/?ci=290&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1',
     'protocol': 'https:',
     'href': 'https://market.waimai.meituan.com/gd2/wm/4Hbymy?el_biz=waimai&',
 };
 var document = {
     "cookie": "", "referrer": 'https://passport.meituan.com/',
-}
+};
+
 var d1 = 4;
 var cU = {
     "b1": Math["floor"](Date["now"]() / 1e3), "b4": "", "b5": 1, "b2": 1
@@ -49,8 +50,8 @@ var dD = {
     "sessionId": "",
     "k2": "",// bA()['localId']
     "k3": "",  //bA()['dfpId']
-    "k5": 0,
-    "k6": ["https://market.waimai.meituan.com/gd2/wm/4Hbymy", ""],//当前时间戳 Date["now"]()//dD["k6"]["push"](window["location"]["href"]["split"]("?")[0]),dD["k6"]["push"](document["referrer"]["split"]("?")[0]),
+    "k5": 0,//当前时间戳 Date["now"]()
+    "k6": ["https://market.waimai.meituan.com/gd2/wm/4Hbymy", ""],//dD["k6"]["push"](window["location"]["href"]["split"]("?")[0]),dD["k6"]["push"](document["referrer"]["split"]("?")[0]),
     "k7": "",  // 经纬度相关
     "k8": "ffffffffffffffffffffff3ffffffffffdfbfffffffffffffffffffffffffc",//检测环境浏览器各种环境
     "k9": "complete|1683005716242|1683005716243|1683005715875", //浏览器cpu、显卡、以及dom加载相关情况
@@ -1178,18 +1179,6 @@ function setContentType(headers, contentType) {
     return contentType === 'application/json' && !eP
 }
 
-function signReq(req, cookie_str) {
-    document.cookie = cookie_str;
-    dD.sessionId = genSessionId();
-    let ba = bA();
-    dD.k0 = Math["floor"](Date["now"]() / 1e3);
-    dD.k2 = ba['localId'];
-    dD.k3 = ba['dfpId'];
-    dD.k5 = Date["now"]();
-    req.data.mtFingerprint = getMTFingerprint();
-    return eg(req);
-}
-
 function dK(eL) {
     function eM() {
         for (var eU, eV, eW, eX, eY, eZ, f0, f1, f2, H = [], m = Function.prototype.call, R = 0; ;) switch (I[R++]) {
@@ -1417,49 +1406,15 @@ function getMTFingerprint() {
     }
 }
 
-
-// 仅暴露函数 signReq，添加指纹以及签名，加料后返回
-// 安装 npm install circular-json
-// 请求样式如下
-
-// var req = {
-//     "url": "https://promotion.waimai.meituan.com/lottery/couponcomponent/fetchcomponentcoupon/v2?couponReferId=401E9BD172F34973AE7B47B86D25A2C0&actualLng=104.198068&actualLat=35.861447&geoType=2&isInDpEnv=0&gdPageId=481021&pageId=482299&version=1&instanceId=16825621365420.19878602244584975&utmSource=&utmCampaign=&needFetchedByUUID=1&sceneId=1",
-//     "method": "POST",
-//     "headers": {
-//         "Content-Type": "application/json", "content-type": "application/json", "content-encoding": ""
-//     },
-//     "data": {
-//         "cType": "mti", "fpPlatform": 1, "wxOpenId": "", "appVersion": "", "mtFingerprint": '',
-//     }
-// };
-// cookie_str = '';
-// console.log(signReq(req, cookie_str));
-// {
-//   url: 'https://promotion.waimai.meituan.com/lottery/couponcomponent/fetchcomponentcoupon/v2?couponReferId=401E9BD172F34973AE7B47B86D25A2C0&actualLng=104.198068&actualLat=35.861447&geoType=2&isInDpEnv=0&gdPageId=481021&pageId=482299&version=1&instanceId=16825621365420.19878602244584975&utmSource=&utmCampaign=&needFetchedByUUID=1&sceneId=1',
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//     'content-type': 'application/json',
-//     'content-encoding': '',
-//     mtgsig: '{"a1":"1.0","a2":1683111756583,"a3":"x56x67x6u61y5904z8vvxzv737u32329812w4x8755v97958179v5u6w","a4":"3538bb902812bae290bb3835e2ba1228b7f87fd455426dfc","a5":"FXY+spn9gqAR76k6KUXudOq90w2nfjYJGVdrBWycWoocupxq1dm32Ag1PnoLSL1P/YUFDi7GE7qZ7LINoOe7pvMvN/F=","a6":"h1.2dJCkrQLor6lZXwo1vuRg6mQflPKB1FyiVRpkpycymQ3FFsrhNArKrgmhdfvKkN3lAtv5MrJR/O0zoc9PiWFLorL6pi5YKGwZoXHxNO1TFTyNwssj8n4Wq9NDyasw8c1mdVOPlb7z8KfqY7DlvKiN4sfjn0AevxnnEj7kxSb8ewYA/LjUlfDJFSji7T1FMKox6txvoMlVJhfNunlaWgRRc+A1Ko4sRmV7jm79UWkm3oKo5pPMFoMPIt7CErrUevl1akLm0pfVOt
-// A7LPTuq++jS6ZKrARQzPLWDF1Rv9g+G0OqTGCur903oc2nbV8+Foy3O5CQfDpN//8u/KS8mPKvBZYtHm1S9znrZjfKWfkLS8tnRAyAvUColgAyPj4t33AOOhoOBFsPQUgLlnapgJaZxAYCm/k9OYn2wDY4c6krRWd/oIM4F1WStlw+mdKEaSsFLYBDFMNmPCNv+lZiVPDb2kyBcgMen/c/5nYNPonEpgs=","a7":"","x0":4,"d1":"664c4e23b4e7ba8cf9d8678eae99f9d7"}'
-//   },
-//   data: {
-//     cType: 'mti',
-//     fpPlatform: 1,
-//     wxOpenId: '',
-//     appVersion: '',
-//     mtFingerprint: 'H5dfp_1.8.2_tttt_1WLvHGbdTrVTcpJYPmzCk6y8eXUERte8A9qCk1bSJU3tDlMwsg+RgTGdRLqFnhZv3w77TsWIe/24w8P/buoNydwtn0ryqDkszPCqJKtSuzQpPas2N7dBoq8yucEcxnZkyDyHXA5v6t4IAiV
-// TQVKU6RUymvizBeu+nztgW6rkvr159Xm/dusg4czrl0StiquF2/cGWymsqbc8g8bFUy2PI2ALva0xTDxAiXN4UhWd+iQar9hufplNtD/hbqiG+NcdYiyAHW/og8/CsOx1cNVAKKiNGS5l9Fk0/SAU/jEg0OKTn/POu++mq1DV8XlDqS79vcJ
-// Ya7bSbdGnTjHmjeK3ya+MqvwCWxyEDgkjMC0qgwKH0QcE8CyFONGtqkXJOQZlnbHq1e7BuI2cfHdDeyG/9U/MEZi1QfnQpC+CD6w34t8DTtNwix6buBqe5ZOi7NnqCE/s7U0UAMcXwc2wzREKsAIF2m2S2TpdGmWsblob5Ezk5N5t9NsBEiV
-// wDjq6P7tLftAZp+A6PzWSrMT6z3xdm1BtuHmQZye/maozLfK0c0i/Isf+kYncgJsWIp9lgk7ZPloyqc0eWLWDS5J0NEPu1K1OVPfKsRJ+Ffyza1Mf9YYSOcCHeegbbFVXGBMbdzQYL0GwzAzk03OyNTtfEYdVdF8bpHBDDV3gs6ZG9o8P2Ud
-// I2n7rxLChaebUgVe1ZS7b53celG8uS1cGdrr7FPnoW4oR+u7ctOFCRlWnfs1KWS4DrenMfSsEBr/EmsnCrRxHAnzTh+zIVknSHDEh/3P+7+eb3NnWtC2ZTYtaAGVS5lxMaxTyWTaeClUHDOIN2px5Nxzg6QnBMZrF777bAmGZe1K8y7tutd0
-// jrBGDRcO6LNAmoX8iN8P4ppKRZNphNRUkdk+YiXd+tA6jHwRki0fagu5jWZEIFAdg7VX9ZYuMkwM54s6vea7r4lSyD8gVSuHZk9G92zYJY0LZ75spsevIO1RBxI+DVX4bYBLsyWF4EgxyszTt+bM7xyqUL7EoBrgN+DtiqQEn+u3lnFw1IAi
-// ZWYA6zPzGRKC2IP0sTWZp0FBmz8bZm/hYZvTURJbtSJ0dRBK/Hz95rTgS4m/bw9y3n9zZ1WGXdCox0JNZ0H4i0HKwOaS/jVMVblOoH8HRd3i5MF9cxZxUfBxfLJa51HHPFPs6Uw/q0dHa6eKk/aq1kRqZuM5MOxIDIObFYW2rZakqQjpuh2c
-// 7UWeT8IVtziWaXwrQj6TJbeiQHwXIkax8y3bYgmY3+XuyeopUyi6kpAbIWM4M67/OnhVmqFrU3h8bOFHrqEBZpWmoOjL0S9UE2iF+lOOo+W12OOJ1XnWVxMwRzNThynF+1jUTQftYvcSompWZit9ZgzCc5u9P+kMp8IJpaawWNc7p1L1zyB0
-// YrX2DlpdwH7GVFB7gydrIGM/tS9fCznJoYrf/iAkRAInUIRAyKkodtmngyxiFoTuyyDl52xxNbyEuGOr5NaVLMahZ5H40z2jZpLbWWGBlnfUu2X7wcVJlI2dQgTDPC1J4Hm8EIydCjf4urxe3YLH3jdFhpLand17dRVWGHHnKo0b2jxM40cX
-// FiCDKhxCx/tukkqZeAbhh56hPZ3RAN4rkVasGao3VS7pbhS6RgzlC6FfxKsjIHUrTHqOPHqp3os+WhVhvFazfJ35K0SfyHLZeWDrvPPxaUUs58ok6Ytmf3SzOBT2BTKSjXCqIPUXshV/RttV/ZmOokIaquM2FH3JADjSZYKeWC0MR+ZO+UeF
-// YKXTJ+juR0RcO03I6EXg1CuEZwpzt957kxqHjq4MzIBzW0K2cTIawsWiU2gsq1vpRwj4otwqLWEPd0QvUatJ1KpYFBg/8AGkewsqdmKaNMBVQxNIfMsC6gKCCDwJUWHbRvmDbhgPLHl1oNhQ1eH+cDwVeOcNn0e9rnYpoQBlHOfEGDcL9dz/
-// k+c6OqBw6nREsVVTMnpa+5lOSQ69ACJIqcBcAf0TmJO5vQy43YdTMYP0FK+iExxFx1A4jYSB4dN4y3GaktcjwMxkPm2FhAVwKqehdAbTTvfha609/JLi5KP8HqVuh6+zYJAjgE5EN3bV5lx4zWOBRZ/NxnkIwJxGryYgMZI+EAU4PlT5Mi8rmhqovvVjMK5tkvNNPPdgNl1RlPqCyK6I='
-//   }
-// }
+function signReq(req) {
+    const headers = req['headers'];
+    document.cookie = headers['Cookie'] === '' ? headers['cookie'] : headers['Cookie'];
+    dD.sessionId = genSessionId();
+    let ba = bA();
+    dD.k0 = Math["floor"](Date["now"]() / 1e3);
+    dD.k2 = ba['localId'];
+    dD.k3 = ba['dfpId'];
+    dD.k5 = Date["now"]();
+    req.data.mtFingerprint = getMTFingerprint();
+    return eg(req);
+}
