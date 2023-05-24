@@ -1,8 +1,17 @@
+import datetime
+
 import execjs
 import requests
-if __name__ == '__main__':
-    js_code = open('mt.js', 'r', encoding='utf-8').read()
-    js = execjs.compile(js_code)
+
+
+# h5指纹
+def mt_getMTFingerprint_example(js):
+    now = int(datetime.datetime.now().timestamp() * 1000)
+    print(js.call("getMTFingerprint", now))
+
+
+# 签名请求示例
+def mt_sign_example(js, cookie: str):
     with requests.session() as session:
         session.headers = {
             "dj-token": "",
@@ -13,7 +22,7 @@ if __name__ == '__main__':
             "Sec-Fetch-Mode": "cors",
             "Sec-Fetch-Dest": "empty",
             "Referer": "https://market.waimai.meituan.com/",
-            "Cookie": ""
+            "Cookie": cookie
         }
         url = 'https://promotion.waimai.meituan.com/lottery/limitcouponcomponent/fetchcoupon?couponReferId=6A6A4BE2942F475D8F916251B3AC247F&geoType=2&gdPageId=492937&pageId=494801&version=1&utmSource=qq&utmCampaign=AgroupBgroupC0D200E0Ghomepage&instanceId=16838781677670.42866282232864470&componentId=16838781677670.42866282232864470'
         data = {"cType": "mtandroid", "fpPlatform": 4, "wxOpenId": "", "appVersion": "12.9.404"}
@@ -23,7 +32,18 @@ if __name__ == '__main__':
             "headers": session.headers,
             'data': data
         }
-        r = js.call("signReq", req)
+
+        now = int(datetime.datetime.now().timestamp() * 1000)
+        r = js.call("signReq", req, now)
         print(r)
         session.headers = r['headers']
         print(session.post(url=url, json=req['data']).text)
+
+
+if __name__ == '__main__':
+    # 填写完整
+    cookie = ''
+    js_code = open('mt.js', 'r', encoding='utf-8').read()
+    js = execjs.compile(js_code)
+    mt_sign_example(js, cookie)
+    mt_getMTFingerprint_example(js)
