@@ -6866,7 +6866,7 @@ function signReq(req, timestamp) {
         timestamp = Date["now"]();
     }
 
-    const headers = req['headers'] === '' ? req['headers'] : req['Headers'];
+    const headers = req['headers'] === '' ? req['Headers'] : req['headers'];
     document.cookie = headers['Cookie'] === '' ? headers['cookie'] : headers['Cookie'];
     dD.sessionId = genSessionId();
     dD.k0 = Math["floor"](timestamp / 1e3);
