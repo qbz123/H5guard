@@ -6864,8 +6864,8 @@ document = {
             timestamp = Date["now"]();
         }
 
-        const headers = req['headers'] === '' ? req['Headers'] : req['headers'];
-        document.cookie = headers['Cookie'] === '' ? headers['cookie'] : headers['Cookie'];
+        const headers = req['Headers'] === undefined ? req['headers'] : req['Headers'];
+        document.cookie = headers['Cookie'] === undefined ? headers['cookie'] : headers['Cookie'];
         dD.sessionId = genSessionId();
         dD.k0 = Math["floor"](timestamp / 1e3);
         dD.k2 = ba['localId'];
