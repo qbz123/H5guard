@@ -1,15 +1,20 @@
+const CircularJSON = require('circular-json');
+window = this;
+location = {
+    'origin'  : 'http://meishi.meituan.com/i/?ci=290&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1',
+    'protocol': 'https:',
+    'href'    : 'https://market.waimai.meituan.com/gd2/wm/4Hbymy?el_biz=waimai&',
+};
+document = {
+    "cookie"  : "",
+    "referrer": 'https://passport.meituan.com/',
+};
+
+__date_now = Date.prototype.now;
+__date_valueOf = Date.prototype.valueOf;
+
 !(function () {
-    const CircularJSON = require('circular-json');
-    window = this;
-    location = {
-        'origin'  : 'http://meishi.meituan.com/i/?ci=290&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1',
-        'protocol': 'https:',
-        'href'    : 'https://market.waimai.meituan.com/gd2/wm/4Hbymy?el_biz=waimai&',
-    };
-    document = {
-        "cookie"  : "",
-        "referrer": 'https://passport.meituan.com/',
-    };
+
 
     d1 = 4;
     cU = {
@@ -6838,14 +6843,17 @@
     md5ToHex = hex
 
     function hookDateTimestamp(timestamp) {
-        Date.prototype.now = () => {return timestamp};
-        Date.prototype.valueOf = () => {return timestamp};
+        if (timestamp) {
+            Date.prototype.now = () => timestamp;
+            Date.prototype.valueOf = () => timestamp;
+        } else {
+            Date.prototype.now = __date_now;
+            Date.prototype.valueOf = __date_valueOf;
+        }
     }
 
     function getMTFingerprint(timestamp) {
-        if (timestamp) {
-            hookDateTimestamp(timestamp);
-        }
+        hookDateTimestamp(timestamp);
         try {
             var eW = JSON["parse"](CircularJSON["stringify"](dD));
             delete eW["k63"], delete eW["k64"], delete eW["k65"], delete eW["k66"], delete eW["k67"], delete eW["k68"], delete eW["k69"], delete eW["k70"]
@@ -6863,9 +6871,7 @@
     }
 
     function signReq(req, timestamp) {
-        if (timestamp) {
-            hookDateTimestamp(timestamp);
-        }
+        hookDateTimestamp(timestamp);
 
         const headers = req['headers'] === '' ? req['Headers'] : req['headers'];
         document.cookie = headers['Cookie'] === '' ? headers['cookie'] : headers['Cookie'];
@@ -6882,4 +6888,8 @@
         getMTFingerprint,
         signReq,
     }
+
+    window.getMTFingerprint = getMTFingerprint;
+    window.signReq = signReq;
+
 }());
