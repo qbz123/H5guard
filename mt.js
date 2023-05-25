@@ -1,16 +1,15 @@
-window = this;
-location = {
-    'origin'  : 'http://meishi.meituan.com/i/?ci=290&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1',
-    'protocol': 'https:',
-    'href'    : 'https://market.waimai.meituan.com/gd2/wm/4Hbymy?el_biz=waimai&',
-};
-document = {
-    "cookie"  : "",
-    "referrer": 'https://passport.meituan.com/',
-};
 !(function () {
     const CircularJSON = require('circular-json');
-
+    window = this;
+    location = {
+        'origin'  : 'http://meishi.meituan.com/i/?ci=290&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1',
+        'protocol': 'https:',
+        'href'    : 'https://market.waimai.meituan.com/gd2/wm/4Hbymy?el_biz=waimai&',
+    };
+    document = {
+        "cookie"  : "",
+        "referrer": 'https://passport.meituan.com/',
+    };
 
     d1 = 4;
     cU = {
@@ -4495,7 +4494,7 @@ document = {
         return eP;
     }
 
-    function eg(req, timestamp) {
+    function eg(req) {
         d1 += 1;
         cU['b2'] = d1;
         var headers = req['headers'] || {};
@@ -4505,8 +4504,7 @@ document = {
             setContentType(headers, 'application/x-www-form-urlencoded');
             setContentType(headers, 'application/json')
         }
-        // let eV = (new Date)['valueOf']();
-        let eV = timestamp;
+        let eV = (new Date)['valueOf']();
 
         let url = req['url'] || "";
 
@@ -4556,7 +4554,7 @@ document = {
             dQ(f2, f1);
         }
 
-        var f4 = cl(dD, timestamp);
+        var f4 = cl(dD);
         ;[]['concat'](f2);
         f2['sort'](e5);
         var f6 = [];
@@ -4729,7 +4727,7 @@ document = {
         var fu = {};
         fu['a1'] = '1.0';
         fu['a2'] = eV;
-        fu['a3'] = bA(timestamp)['dfpId'];
+        fu['a3'] = bA()['dfpId'];
         fu['a4'] = ft;
         fu['a5'] = fk;
         fu['a6'] = f4;
@@ -5503,10 +5501,10 @@ document = {
                 ex[ey] = ez, ez >>>= 8;
             }
         },
-        b8 = function (ex, ey, timestamp) {
+        b8 = function (ex, ey) {
             var ez = ey["filename"];
             if (ex[0] = 31, ex[1] = 139, ex[2] = 8, ex[8] = ey["level"] < 2 ? 4 : 9 == ey["level"] ? 2 : 0, ex[9] =
-                3, 0 != ey["mtime"] && b7(ex, 4, Math["floor"](new Date(ey["mtime"] || timestamp) / 1e3)), ez) {
+                3, 0 != ey["mtime"] && b7(ex, 4, Math["floor"](new Date(ey["mtime"] || Date["now"]()) / 1e3)), ez) {
                 ex[3] = 8;
                 for (
                     var eA = 0;
@@ -5521,14 +5519,14 @@ document = {
             return 10 + (ex["filename"] && ex["filename"]["length"] + 1 || 0);
         };
 
-    function ba(timestamp, ex, ey) {
+    function ba(ex, ey) {
         ey || (ey = {});
         var ez = b5(),
             eA = ex["length"];
         ez.p(ex);
         var eB = b6(ex, ey, b9(ey), 8),
             eC = eB["length"];
-        return b8(eB, ey, timestamp), b7(eB, eC - 8, ez.d()), b7(eB, eC - 4, eA), eB;
+        return b8(eB, ey), b7(eB, eC - 8, ez.d()), b7(eB, eC - 4, eA), eB;
     }
 
     var bb = typeof TextEncoder != "undefined" && new TextEncoder(),
@@ -6029,7 +6027,7 @@ document = {
     });
     cc["beware"].o();
 
-    function cl(eF, timestamp) {
+    function cl(eF) {
         var eG = "h1.2",
             eJ = {},
             eK = function (eF) {
@@ -6067,7 +6065,7 @@ document = {
                 }
                 return eF["k55"] = eG, eF["k56"] = eJ, eF;
             }(eJ = Object["assign"](eJ, eF)));
-        return eK = ba(timestamp, be(eK)), eG += function (eF) {
+        return eK = ba(be(eK)), eG += function (eF) {
             function eG() {
                 for (
                     var eN = ["91EBA6DBE4E5A7C8E6E3A3C1F4A4DFF9E9",
@@ -6120,7 +6118,7 @@ document = {
         return null
     }
 
-    function bA(timestamp, ez) {
+    function bA(ez) {
         try {
             if (bl['dfpId'] && bl['timestamp']) {
                 return bl;
@@ -6162,7 +6160,7 @@ document = {
                 eA = function (ez) {
                     try {
                         var eA,
-                            eB = timestamp;
+                            eB = Date['now']();
                         var eC = ""['concat'](eB)['concat'](bu(7))['concat'](bv());
                         eC = eC['concat'](bw(eC));
                         var bq = eC;
@@ -6516,7 +6514,7 @@ document = {
         return contentType === 'application/json' && !eP
     }
 
-    function dK(eL, timestamp) {
+    function dK(eL) {
         function eM() {
             for (
                 var eU,
@@ -6671,9 +6669,9 @@ document = {
             }
         }
 
-        eL = ba(timestamp, be(eL)), eL = cc["codec"]["bytes"]["toBits"](eL);
-        var eN = cc["codec"]["utf8String"]["toBits"](eM(timestamp)[0]),
-            eP = cc["codec"]["utf8String"]["toBits"](eM(timestamp)[1]),
+        eL = ba(be(eL)), eL = cc["codec"]["bytes"]["toBits"](eL);
+        var eN = cc["codec"]["utf8String"]["toBits"](eM()[0]),
+            eP = cc["codec"]["utf8String"]["toBits"](eM()[1]),
             eQ = new cc["cipher"]["aes"](eN),
             eT = cc["mode"]["cbc"]["encrypt"](eQ, eL, eP);
         return cc["codec"]["base64"]["fromBits"](eT);
@@ -6839,47 +6837,49 @@ document = {
     md5Array = md51
     md5ToHex = hex
 
+    function hookDateTimestamp(timestamp) {
+        Date.prototype.now = () => {return timestamp};
+        Date.prototype.valueOf = () => {return timestamp};
+    }
+
     function getMTFingerprint(timestamp) {
-        if (!timestamp) {
-            timestamp = Date["now"]();
+        if (timestamp) {
+            hookDateTimestamp(timestamp);
         }
         try {
             var eW = JSON["parse"](CircularJSON["stringify"](dD));
             delete eW["k63"], delete eW["k64"], delete eW["k65"], delete eW["k66"], delete eW["k67"], delete eW["k68"], delete eW["k69"], delete eW["k70"]
             try {
                 eW['k60'] = "fffffffff8";
-                eW["k4"] = timestamp;
+                eW["k4"] = Date["now"]();
                 eW["k58"]["length"] > 30 && (eW["k58"] = eW["k58"]["slice"](0, 30));
                 eW["k59"]["length"] > 30 && (eW["k59"] = eW["k59"]["slice"](0, 30));
                 var eX = CircularJSON["stringify"](eW);
             } catch (eZ) {
             }
-            return "H5dfp_" + "1.8.2" + "_tttt_" + dK(eX, timestamp);
+            return "H5dfp_" + "1.8.2" + "_tttt_" + dK(eX);
         } catch (e) {
         }
     }
 
     function signReq(req, timestamp) {
-        if (!timestamp) {
-            timestamp = Date["now"]();
+        if (timestamp) {
+            hookDateTimestamp(timestamp);
         }
 
-        const headers = req['Headers'] === undefined ? req['headers'] : req['Headers'];
-        document.cookie = headers['Cookie'] === undefined ? headers['cookie'] : headers['Cookie'];
+        const headers = req['headers'] === '' ? req['Headers'] : req['headers'];
+        document.cookie = headers['Cookie'] === '' ? headers['cookie'] : headers['Cookie'];
         dD.sessionId = genSessionId();
-        dD.k0 = Math["floor"](timestamp / 1e3);
+        dD.k0 = Math["floor"](Date["now"]() / 1e3);
         dD.k2 = ba['localId'];
         dD.k3 = ba['dfpId'];
-        dD.k5 = timestamp;
+        dD.k5 = Date["now"]();
         req.data["mtFingerprint"] = getMTFingerprint(timestamp);
-        return eg(req, timestamp);
+        return eg(req);
     }
 
     module.exports = {
         getMTFingerprint,
         signReq,
     }
-
-    window.getMTFingerprint = getMTFingerprint;
-    window.signReq = signReq;
 }());
